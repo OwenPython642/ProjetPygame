@@ -3,7 +3,7 @@ import time
 
 
 class AnimateSprite(pygame.sprite.Sprite):
-    def __init__(self, sprite_name, size=(200, 200)) -> None:
+    def __init__(self, sprite_name, size=(200, 200), animation_speed=60) -> None:
         super().__init__()
         self.size = size
         self.current_image: int = 0
@@ -15,7 +15,7 @@ class AnimateSprite(pygame.sprite.Sprite):
         self.image = self.images[0]
         self.animation: bool = False
         self.last_update_time = time.time()
-        self.animation_speed = 0.1  # seconds per frame
+        self.animation_speed = animation_speed  # seconds per frame
 
     def start_animation(self) -> None:
         self.animation = True

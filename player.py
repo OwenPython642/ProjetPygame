@@ -4,9 +4,9 @@ import animation
 
 
 class Player(animation.AnimateSprite):
-    def __init__(self, game) -> None:
+    def __init__(self, game, animation_speed=1) -> None:
         self.size = (200, 200)
-        super().__init__("player", self.size)
+        super().__init__("player", self.size, animation_speed=animation_speed)
         self.game = game
         self.health: int = 100
         self.max_health: int = 100

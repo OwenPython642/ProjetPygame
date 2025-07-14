@@ -4,8 +4,8 @@ import animation
 
 
 class Monster(animation.AnimateSprite):
-    def __init__(self, game, name: str, size: tuple, offset: int = 0) -> None:
-        super().__init__(name, size)
+    def __init__(self, game, name: str, size: tuple, offset: int = 0, animation_speed=1) -> None:
+        super().__init__(name, size, animation_speed=animation_speed)
         self.game = game
         self.health: int = 100
         self.max_health: int = 100

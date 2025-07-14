@@ -2,46 +2,42 @@ import pygame
 from game import Game
 import math
 
+import os
+
 pygame.init()
 
 FPS = 60
 
 pygame.display.set_caption("Comet Fall Game")
-screen = pygame.display.set_mode((1080, 720))
 
-background = pygame.image.load(
-    r"C:\Users\owenp\Desktop\pythontest\pygame\assets\bg.jpg"
-)
+game = Game()
 
-banner = pygame.image.load(
-    r"C:\Users\owenp\Desktop\pythontest\pygame\assets\banner.png"
-)
-banner = pygame.transform.scale(banner, (500, 500))
-banner_rect = banner.get_rect()
-banner_rect.x = math.ceil(screen.get_width() / 4)
+# Use relative paths for assets
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+ASSETS_DIR = os.path.join(BASE_DIR, "assets")
 
-play_button = pygame.image.load(
-    r"C:\Users\owenp\Desktop\pythontest\pygame\assets\button.png"
-)
+background = pygame.image.load(os.path.join(ASSETS_DIR, "bg.jpg"))
+
+play_button = pygame.image.load(os.path.join(ASSETS_DIR, "button.png"))
 play_button = pygame.transform.scale(play_button, (400, 150))
 play_button_rect = play_button.get_rect()
-play_button_rect.x = math.ceil(screen.get_width() / 3.33)
-play_button_rect.y = math.ceil(screen.get_height() / 2)
+play_button_rect.x = math.ceil(game.screen.get_width() / 3.33)
+play_button_rect.y = math.ceil(game.screen.get_height() / 2)
 
 
 def run() -> None:
     clock = pygame.time.Clock()
-    game = Game()
+    
     running = True
 
     while running:
-        screen.blit(background, (0, -200))
+        game.screen.blit(background, (0, -200))
 
         if game.is_playing:
-            game.update(screen)
+            game.update(game.screen)
         else:
-            screen.blit(play_button, play_button_rect)
-            screen.blit(banner, banner_rect)
+            game.screen.blit(play_button, play_button_rect)
+            game.screen.blit(game.banner, game.banner_rect)
 
         pygame.display.flip()
 
@@ -53,6 +49,9 @@ def run() -> None:
                 game.pressed[event.key] = True
                 if event.key == pygame.K_SPACE:
                     game.player.launch_projectile()
+                elif event.key == pygame.K_ESCAPE:
+                    # Proper toggle for pause
+                    game.is_paused = not game.is_paused
             elif event.type == pygame.KEYUP:
                 game.pressed[event.key] = False
             elif event.type == pygame.MOUSEBUTTONDOWN:

@@ -11,7 +11,7 @@ _projectile_image = pygame.transform.scale(
 class Projectile(pygame.sprite.Sprite):
     def __init__(self, player) -> None:
         super().__init__()
-        self.velocity: int = 6
+        self.velocity: int = 5
         self.player = player
         self.image = _projectile_image
         self.rect = self.image.get_rect()
