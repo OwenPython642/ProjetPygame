@@ -4,7 +4,9 @@ import animation
 
 
 class Monster(animation.AnimateSprite):
-    def __init__(self, game, name: str, size: tuple, offset: int = 0, animation_speed=1) -> None:
+    def __init__(
+        self, game, name: str, size: tuple, offset: int = 0, animation_speed=1
+    ) -> None:
         super().__init__(name, size, animation_speed=animation_speed)
         self.game = game
         self.health: int = 100
@@ -18,6 +20,9 @@ class Monster(animation.AnimateSprite):
     def set_loot_amount(self, amount: int) -> None:
         self.loot_amount = amount
 
+    def set_exp_reward_amount(self, amount: int) -> None:
+        self.exp_reward_amount = amount
+
     def set_speed(self, speed: int) -> None:
         self.default_speed = speed
         self.velocity = random.randint(1, speed)
@@ -30,6 +35,7 @@ class Monster(animation.AnimateSprite):
             self.rect.x = 1000 + random.randint(0, 300)
             self.velocity = random.randint(1, self.default_speed)
             self.game.add_score(self.loot_amount)
+            self.game.player.exp += self.exp_reward_amount
             if self.game.comet_event.is_full_loaded():
                 self.game.all_monsters.remove(self)
                 self.game.comet_event.attempt_fall()
@@ -64,6 +70,7 @@ class Mummy(Monster):
         super().__init__(game, "mummy", self.size, self.offset)
         self.set_speed(3)
         self.set_loot_amount(20)
+        self.set_exp_reward_amount(50)
 
 
 class Alien(Monster):
@@ -76,3 +83,4 @@ class Alien(Monster):
         self.attack: float = 0.8
         self.set_speed(1)
         self.set_loot_amount(80)
+        self.set_exp_reward_amount(100)

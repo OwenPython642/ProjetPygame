@@ -20,8 +20,9 @@ class CometFallEvent:
         self.percent: float = 0
 
     def meteor_fall(self) -> None:
-        for i in range(1, 15):
+        for _ in range(1, 23):
             self.all_comets.add(Comet(self))
+        self.game.wave += 1
 
     def attempt_fall(self) -> None:
         if (
