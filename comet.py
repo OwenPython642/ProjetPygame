@@ -13,7 +13,7 @@ class Comet(pygame.sprite.Sprite):
         self.comet_event = comet_event
         self.image = _comet_image
         self.rect = self.image.get_rect()
-        self.velocity: int = random.randint(3, 6)
+        self.velocity: int = random.randint(6, 9)
         self.rect.x = random.randint(20, 1000)
         self.rect.y = -random.randint(0, 1000)
 
@@ -39,5 +39,5 @@ class Comet(pygame.sprite.Sprite):
         if self.comet_event.game.check_collision(
             self, self.comet_event.game.all_players
         ):
-            self.comet_event.game.player.health -= self.attack
+            self.comet_event.game.player.damage(self.attack)
             self.remove()

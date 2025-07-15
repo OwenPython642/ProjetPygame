@@ -34,11 +34,17 @@ class Game:
         self.font = pygame.font.Font(os.path.join(ASSETS_DIR, "arial.ttf"), 16)
         self.score: int = 0
         self.pressed: dict = {}
+        self.wave = 1
 
     def pause_game(self, screen: pygame.Surface) -> None:
         self.screen.blit(self.banner, self.banner_rect)
         # Increase font size and make text bold for paused message
-        bold_font = pygame.font.Font(os.path.join(os.path.dirname(os.path.abspath(__file__)), "assets", "arial.ttf"), 128)
+        bold_font = pygame.font.Font(
+            os.path.join(
+                os.path.dirname(os.path.abspath(__file__)), "assets", "arial.ttf"
+            ),
+            128,
+        )
         paused_text = bold_font.render("paused ...", True, (255, 255, 255))
         screen.blit(paused_text, (350, 500))
 
@@ -53,8 +59,8 @@ class Game:
 
     def start(self) -> None:
         self.is_playing = True
-        self.spawn_monster(Mummy, 2)
-        self.spawn_monster(Alien, 1)
+        self.spawn_monster(Mummy, 1 + self.wave)
+        self.spawn_monster(Alien, math.floor(0 + self.wave / 2))
 
     def add_score(self, amount=20) -> None:
         self.score += amount
@@ -71,10 +77,24 @@ class Game:
     def update(self, screen: pygame.Surface) -> None:
 
         score_text = self.font.render(f"score: {self.score}", 1, (0, 0, 0))
+        level_text = self.font.render(f"level: {self.player.level}", 1, (0, 0, 0))
+        exp_text = self.font.render(f"level: {self.player.exp}", 1, (0, 0, 0))
+        exp_goal_text = self.font.render(
+            f"goal_exp: {self.player.goal_exp}", 1, (0, 0, 0)
+        )
+        
+        
 
         screen.blit(self.player.image, self.player.rect)
 
-        screen.blit(score_text, (20, 20))
+        all_text = [score_text, level_text, exp_text, exp_goal_text]
+
+        for i in range(len(all_text)):
+            screen.blit(all_text[i], (10, 20 * i))
+
+        if self.player.exp >= self.player.goal_exp:
+            self.player.add_level()
+            self.attack = self.player.base_attack + self.player.level
 
         self.player.update_health_bar(screen)
         if not self.is_paused:
@@ -104,7 +124,10 @@ class Game:
 
         if not self.is_paused:
             keys = pygame.key.get_pressed()
-            if keys[pygame.K_RIGHT] and self.player.rect.x + self.player.rect.width < screen.get_width():
+            if (
+                keys[pygame.K_RIGHT]
+                and self.player.rect.x + self.player.rect.width < screen.get_width()
+            ):
                 self.player.move_right()
             elif keys[pygame.K_LEFT] and self.player.rect.x > 0:
                 self.player.move_left()

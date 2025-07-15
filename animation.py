@@ -10,13 +10,12 @@ class AnimateSprite(pygame.sprite.Sprite):
         result = animation.get(sprite_name)
         if result is None:
             raise ValueError(f"Aucune animation trouvée pour '{sprite_name}'")
-        # Scale images once on load
         self.images = [pygame.transform.scale(img, self.size) for img in result]
         self.image = self.images[0]
         self.animation: bool = False
         self.last_update_time = time.time()
         self.animation_speed = animation_speed  # seconds per frame
-
+    
     def start_animation(self) -> None:
         self.animation = True
         self.last_update_time = time.time()
