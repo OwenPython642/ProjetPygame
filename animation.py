@@ -15,7 +15,7 @@ class AnimateSprite(pygame.sprite.Sprite):
         self.animation: bool = False
         self.last_update_time = time.time()
         self.animation_speed = animation_speed  # seconds per frame
-    
+
     def start_animation(self) -> None:
         self.animation = True
         self.last_update_time = time.time()

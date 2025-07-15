@@ -82,8 +82,6 @@ class Game:
         exp_goal_text = self.font.render(
             f"goal_exp: {self.player.goal_exp}", 1, (0, 0, 0)
         )
-        
-        
 
         screen.blit(self.player.image, self.player.rect)
 
