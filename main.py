@@ -27,7 +27,7 @@ play_button_rect.y = math.ceil(game.screen.get_height() / 2)
 
 def run() -> None:
     clock = pygame.time.Clock()
-
+    
     running = True
 
     while running:
@@ -50,6 +50,7 @@ def run() -> None:
                 if event.key == pygame.K_SPACE:
                     game.player.launch_projectile()
                 elif event.key == pygame.K_ESCAPE:
+                    # Proper toggle for pause
                     game.is_paused = not game.is_paused
             elif event.type == pygame.KEYUP:
                 game.pressed[event.key] = False
