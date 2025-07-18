@@ -1,6 +1,9 @@
 import pygame
 import time
+import os
 
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+ASSETS_DIR = os.path.join(BASE_DIR, "assets")
 
 class AnimateSprite(pygame.sprite.Sprite):
     def __init__(self, sprite_name, size=(200, 200), animation_speed=60) -> None:
@@ -39,7 +42,7 @@ class AnimateSprite(pygame.sprite.Sprite):
 def load_animation_images(sprite_name) -> list[pygame.surface.Surface]:
     images: list = []
     path = (
-        rf"assets\{sprite_name}\{sprite_name}"
+        os.path.join(ASSETS_DIR, rf"{sprite_name}\{sprite_name}")
     )
     for num in range(1, 24):
         image_path = path + str(num) + ".png"

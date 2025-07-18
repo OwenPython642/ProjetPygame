@@ -1,12 +1,15 @@
 import pygame
+import os
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+ASSETS_DIR = os.path.join(BASE_DIR, "assets")
 
 _projectile_image = pygame.transform.scale(
     pygame.image.load(
-        r"assets\projectile.png"
+        os.path.join(ASSETS_DIR, "projectile.png")
     ),
     (50, 50),
 )
-
 
 class Projectile(pygame.sprite.Sprite):
     def __init__(self, player) -> None:

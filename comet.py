@@ -1,10 +1,13 @@
 import pygame
 import random
+import os
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+ASSETS_DIR = os.path.join(BASE_DIR, "assets")
 
 _comet_image = pygame.image.load(
-    r"C:\Users\owenp\Desktop\pythontest\pygame\assets\comet.png"
+    os.path.join(ASSETS_DIR, "bg.jpg")
 )
-
 
 class Comet(pygame.sprite.Sprite):
     def __init__(self, comet_event) -> None:
@@ -39,5 +42,5 @@ class Comet(pygame.sprite.Sprite):
         if self.comet_event.game.check_collision(
             self, self.comet_event.game.all_players
         ):
-            self.comet_event.game.player.health -= self.attack
+            self.comet_event.game.player.game_over(self.attack)
             self.remove()

@@ -1,20 +1,23 @@
 import pygame
+import os
 
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+ASSETS_DIR = os.path.join(BASE_DIR, "assets/sounds")
 
 class SoundManager:
     def __init__(self) -> None:
         self.sounds: dict = {
             "click": pygame.mixer.Sound(
-                r"C:\Users\owenp\Desktop\pythontest\pygame\assets\sounds\click.ogg"
+                os.path.join(ASSETS_DIR, "click.ogg")
             ),
             "game_over": pygame.mixer.Sound(
-                r"C:\Users\owenp\Desktop\pythontest\pygame\assets\sounds\game_over.ogg"
+                os.path.join(ASSETS_DIR, "game_over.ogg")
             ),
             "meteorite": pygame.mixer.Sound(
-                r"C:\Users\owenp\Desktop\pythontest\pygame\assets\sounds\meteorite.ogg"
+                os.path.join(ASSETS_DIR, "meteorite.ogg")
             ),
             "tir": pygame.mixer.Sound(
-                r"C:\Users\owenp\Desktop\pythontest\pygame\assets\sounds\tir.ogg"
+                os.path.join(ASSETS_DIR, "tir.ogg")
             ),
         }
         for sound in self.sounds.values():
