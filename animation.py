@@ -39,7 +39,7 @@ class AnimateSprite(pygame.sprite.Sprite):
 def load_animation_images(sprite_name) -> list[pygame.surface.Surface]:
     images: list = []
     path = (
-        rf"C:\Users\owenp\Desktop\pythontest\pygame\assets\{sprite_name}\{sprite_name}"
+        rf"assets\{sprite_name}\{sprite_name}"
     )
     for num in range(1, 24):
         image_path = path + str(num) + ".png"

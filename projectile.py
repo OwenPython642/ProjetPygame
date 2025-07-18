@@ -2,7 +2,7 @@ import pygame
 
 _projectile_image = pygame.transform.scale(
     pygame.image.load(
-        r"C:\Users\owenp\Desktop\pythontest\pygame\assets\projectile.png"
+        r"assets\projectile.png"
     ),
     (50, 50),
 )
